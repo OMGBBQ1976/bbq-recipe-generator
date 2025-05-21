@@ -63,6 +63,9 @@
 </div>
 
     <button type="submit">Generate Recipe</button>
+    <!-- Loading Message -->
+<div id="loading" style="display: none; margin-top: 10px;">Generating your recipe... 🔥 Please wait...</div>
+
   </form>
 <!-- Sponsor or Advertisement Section -->
 <div class="sponsor-banner">
@@ -78,45 +81,57 @@
 </div>
 <button onclick="downloadRecipe()">💾 Download Recipe</button>
 
-  <script>
-    document.getElementById('recipe-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
+ <script>
+  document.getElementById('recipe-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const meat = document.getElementById('meat').value.trim();
-      const style = document.getElementById('style').value.trim();
-      const smoker = document.getElementById('smoker').value.trim();
-      const wood = document.getElementById('wood').value.trim();
-      const time = document.getElementById('time').value;
-      const useCelsius = document.getElementById('tempToggle').checked;
-      const useMetric = document.getElementById('unitToggle').checked;
+    const button = e.target.querySelector('button[type="submit"]');
+    const loadingDiv = document.getElementById('loading');
+    const outputDiv = document.getElementById('recipe-output');
 
-      const payload = {
-        meat, style, smoker, wood, time, useCelsius, useMetric
-      };
+    // Show loading state
+    loadingDiv.style.display = 'block';
+    button.disabled = true;
+    outputDiv.innerText = '';
 
-      try {
-        const response = await fetch('/api/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const data = await response.json();
-        document.getElementById('recipe-output').innerText = data.recipe || 'Error generating recipe.';
-      } catch (err) {
-        document.getElementById('recipe-output').innerText = 'Server error. Please try again.';
-        console.error(err);
-      }
-    });
-    function downloadRecipe() {
-  const recipe = document.getElementById('recipe-output').innerText;
-  const blob = new Blob([recipe], { type: 'text/plain' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'bbq_recipe.txt';
-  link.click();
-}
+    const meat = document.getElementById('meat').value.trim();
+    const style = document.getElementById('style').value.trim();
+    const smoker = document.getElementById('smoker').value.trim();
+    const wood = document.getElementById('wood').value.trim();
+    const time = document.getElementById('time').value;
+    const useCelsius = document.getElementById('tempToggle').checked;
+    const useMetric = document.getElementById('unitToggle').checked;
 
-  </script>
+    const payload = {
+      meat,
+      style,
+      smoker,
+      wood,
+      time,
+      useCelsius,
+      useMetric
+    };
+
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+      outputDiv.innerText = data.recipe || 'Error generating recipe.';
+    } catch (err) {
+      outputDiv.innerText = 'Server error. Please try again.';
+      console.error(err);
+    } finally {
+      // Hide loading state and re-enable button
+      loadingDiv.style.display = 'none';
+      button.disabled = false;
+    }
+  });
+</script>
+
 
  <footer class="footer">
   <p>&copy; 2025 OMG BBQ. All rights reserved.</p>
