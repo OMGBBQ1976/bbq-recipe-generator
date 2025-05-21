@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OMG BBQ Recipe Generator</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- Logo -->
+
+  <img src="logo.png" alt="OMG BBQ Logo" class="logo">
+ 
+<h1>🔥 OMG BBQ Recipe Generator 🔥</h1>
+
+  <form id="recipe-form">
+    <div>
+      <label for="meat">Meat Type:</label>
+      <input type="text" id="meat" name="meat" required placeholder="e.g. Brisket, Ribs">
+    </div>
+
+    <div>
+      <label for="style">BBQ Style:</label>
+      <input type="text" id="style" name="style" required placeholder="e.g. Texas-Style">
+    </div>
+
+    <div>
+      <label for="smoker">Smoker Type:</label>
+      <input type="text" id="smoker" name="smoker" required placeholder="e.g. Offset Smoker">
+    </div>
+
+    <div>
+      <label for="wood">Wood Type:</label>
+      <input type="text" id="wood" name="wood" placeholder="e.g. Hickory, Ironbark">
+    </div>
+
+    <div>
+      <label for="time">Cooking Time (hours):</label>
+      <input type="number" id="time" name="time" min="1" required>
+    </div>
+
+    <!-- Toggle Switches -->
+    <div class="toggles">
+  <div class="toggle-row">
+    <label class="switch">
+      <input type="checkbox" id="tempToggle">
+      <span class="slider"></span>
+    </label>
+    <span class="label-text">°C / °F</span>
+  </div>
+
+  <div class="toggle-row">
+    <label class="switch">
+      <input type="checkbox" id="unitToggle">
+      <span class="slider"></span>
+    </label>
+    <span class="label-text">Metric / Imperial</span>
+  </div>
+</div>
+
+    <button type="submit">Generate Recipe</button>
+  </form>
+<!-- Sponsor or Advertisement Section -->
+<div class="sponsor-banner">
+  <p>🔥 Sponsored by:</p>
+  <a href="https://omg-bbq.square.site" target="_blank">
+    <img src="/Ads/Advertise here.mp4" alt="Example Sponsor" />
+  </a>
+</div>
+
+  <div id="recipe-output"></div>
+<div class="action-buttons">
+  <button onclick="window.print()">🖨️ Print Recipe</button>
+</div>
+<button onclick="downloadRecipe()">💾 Download Recipe</button>
+
+  <script>
+    document.getElementById('recipe-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const meat = document.getElementById('meat').value.trim();
+      const style = document.getElementById('style').value.trim();
+      const smoker = document.getElementById('smoker').value.trim();
+      const wood = document.getElementById('wood').value.trim();
+      const time = document.getElementById('time').value;
+      const useCelsius = document.getElementById('tempToggle').checked;
+      const useMetric = document.getElementById('unitToggle').checked;
+
+      const payload = {
+        meat, style, smoker, wood, time, useCelsius, useMetric
+      };
+
+      try {
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        document.getElementById('recipe-output').innerText = data.recipe || 'Error generating recipe.';
+      } catch (err) {
+        document.getElementById('recipe-output').innerText = 'Server error. Please try again.';
+        console.error(err);
+      }
+    });
+    function downloadRecipe() {
+  const recipe = document.getElementById('recipe-output').innerText;
+  const blob = new Blob([recipe], { type: 'text/plain' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'bbq_recipe.txt';
+  link.click();
+}
+
+  </script>
+
+ <footer class="footer">
+  <p>&copy; 2025 OMG BBQ. All rights reserved.</p>
+  <div class="social-links">
+    <a href="https://www.instagram.com/omg_bbq_Australia" target="_blank" aria-label="Instagram">
+      <img src="icons/instagram.svg" alt="Instagram" />
+    </a>
+    <a href="https://www.facebook.com/OMGBBQBendigo" target="_blank" aria-label="Facebook">
+      <img src="icons/facebook.svg" alt="Facebook" />
+    </a>
+  </div>
+</footer>
+
+ 
+</body>
+</html>
