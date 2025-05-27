@@ -122,7 +122,18 @@
       });
 
       const data = await response.json();
-      outputDiv.innerText = data.recipe || 'Error generating recipe.';
+      outputDiv.innerHTML = `
+  <pre>${data.recipe || 'Error generating recipe.'}</pre>
+  <div style="margin-top: 20px;">
+    <a href="https://www.amazon.com.au/s?k=inkbird&crid=3SGF7GOTG6PF&sprefix=inkbird%2Caps%2C386&linkCode=ll2&tag=omgbbq-22&linkId=105c3485fc2ae1dacc60d4baf9bcb97c&language=en_AU&ref_=as_li_ss_tl" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       style="display: inline-block; margin-top: 10px; font-weight: bold; color: #c00;">
+       🔥 Check out Inkbird Thermometers on Amazon
+    </a>
+  </div>
+`;
+
     } catch (err) {
       outputDiv.innerText = 'Server error. Please try again.';
       console.error(err);
