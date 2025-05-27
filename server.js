@@ -15,7 +15,7 @@ const openai = new OpenAI({
 });
 
 app.post('/api/generate', async (req, res) => {
-  const { meat, style, smoker, wood, time, useMetric, useCelsius } = req.body;
+  const { meat, style, smoker, wood, useMetric, useCelsius } = req.body;
 
   try {
     const tempUnit = useCelsius ? 'Celsius' : 'Fahrenheit';
@@ -23,8 +23,7 @@ app.post('/api/generate', async (req, res) => {
     const woodText = wood ? ` using ${wood} wood` : '';
 
     const prompt = `
-Generate a low and slow BBQ recipe for ${meat} using ${style} BBQ style on a ${smoker}${woodText}, 
-that takes about ${time} hours. Include:
+Generate a low and slow BBQ recipe for ${meat} using ${style} BBQ style on a ${smoker}${woodText}. Include:
 - A dry rub recipe
 - Step-by-step cooking instructions
 - Tips and techniques
