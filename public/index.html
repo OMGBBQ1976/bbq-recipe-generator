@@ -73,18 +73,13 @@
   </a>
 </div>
 
-  <div id="recipe-output" class="recipe-output">
-  <h2>Your BBQ Recipe</h2>
-  </div>
-    <!-- Recipe will be displayed here -->
-
-
-<!-- Amazon ad container -->
-<div id="ad-container" style="text-align: center; margin-top: 1rem;">
-  <a href="https://www.amazon.com.au/s?k=inkbird&crid=3SGF7GOTG6PF&sprefix=inkbird%2Caps%2C386&linkCode=ll2&tag=omgbbq-22&linkId=105c3485fc2ae1dacc60d4baf9bcb97c&language=en_AU&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">
-    🔥 Check out Inkbird Thermometers on Amazon
-  </a>
+ <div id="output" class="recipe-box"></div>
+<div id="ad-link" class="ad-box">
+  <p><a href="https://www.amazon.com.au/Resistant-Non-Slip-Silicone-Insulated-Washable/dp/B0DJ565LRZ?crid=2FZ609NMRFPAC&dib=eyJ2IjoiMSJ9.23xuTo8c312snXa6YeWkRQ979mjy-0jQaw1aslLmW1fAr8TMhwhZcsgnYWCx6IumaQNOrxIB9DQpq0Q02-5uvP9XD_LgmgkYaE7GHo_OsnkzUo96WvygHk4gSDCTZuO2mQI58KSFLKMk8TeMAh3naGWANFjyD-P4nyNAIahCgPTDKNbWnAXKRUUPxgX-W4Wtd4pSEDXiLXjDzwiYz__Rf7n4pxMfOjXVE5-DENOy6Nm4ymExvJ7kjBNXH0MpJttMD3ms7h014xxHF4B32_z6vTJSChFRJ2V7AEK4B3-c8PU.-nuHdte6X4b1FHGqdpSAvWYx1_VlMDdUwTqQ1pHyMjU&dib_tag=se&keywords=bbq%2Bgloves&qid=1748320623&sprefix=bbq%2Bglove%2Caps%2C354&sr=8-17&th=1&linkCode=ll1&tag=omgbbq-22&linkId=0560e47458b2a15e89d6f1fa33a5b1e5&language=en_AU&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">
+    Check out Inkbird BBQ gear on Amazon
+  </a></p>
 </div>
+
 
 <div class="action-buttons">
   <button onclick="window.print()">🖨️ Print Recipe</button>
@@ -130,7 +125,7 @@
       outputDiv.innerHTML = `
   <pre>${data.recipe || 'Error generating recipe.'}</pre>
   <div style="margin-top: 20px;">
-    <a href="https://www.amazon.com.au/s?k=inkbird&crid=3SGF7GOTG6PF&sprefix=inkbird%2Caps%2C386&linkCode=ll2&tag=omgbbq-22&linkId=105c3485fc2ae1dacc60d4baf9bcb97c&language=en_AU&ref_=as_li_ss_tl" 
+    <a href="https://www.amazon.com.au/Inkbird-Waterproof-Thermometer-Rechargeable-Calibration/dp/B07X9ZSCD8?crid=3SGF7GOTG6PF&dib=eyJ2IjoiMSJ9.3KeBwCHhsqQoSBMdr3exFIPl14JRILEGclB14v0s6eYSP5NsS2uiLMfhszu3ikhCUJtegxChaot5qcEII9REBVvbLgcyTd3KYV-vTxdo5xaMUPEyA2-7KwkBVzKjUKX2mK4v_jH1W2XU0mmuoQ26aJOosjZ0NdrIdmgp98b09suo-juwe_E71zM4ZQT8BY-9GQ_VUFdWcmTbiX4YfjlGNEe1PSigLJSP-NAiDYet7coVsWckrjoVfrr29A8nM1uoGVUYK5cn1hKg_-rSuFl_oOSgQymoiqDTftFjonJ3Q3U.sQzLQ6v_ZbX7iOkBPnE9qSpj5GgqgbTA3P6BXmFglkA&dib_tag=se&keywords=inkbird&qid=1748306890&sprefix=inkbird%2Caps%2C386&sr=8-9&th=1&linkCode=ll1&tag=omgbbq-22&linkId=35b0d6b0ef490c459d59cda4515c59eb&language=en_AU&ref_=as_li_ss_tl" 
        target="_blank" 
        rel="noopener noreferrer" 
        style="display: inline-block; margin-top: 10px; font-weight: bold; color: #c00;">
