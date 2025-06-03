@@ -62,22 +62,50 @@
 
     <button type="submit">Generate Recipe</button>
     <!-- Loading Message -->
-<div id="loading" style="display: none; margin-top: 10px;">Smoking up you recipe now... 🔥 Please wait...</div>
+<div id="loading" style="display: none; margin-top: 10px;">Smoking up your recipe... 🔥 Just be a minute...</div>
 
   </form>
 <!-- Sponsor or Advertisement Section -->
 <div class="sponsor-banner">
   <p>🔥 Sponsored by:</p>
-  <a href="https://omg-bbq.square.site" target="_blank">
-    <img src="/Ads/Advertise here.mp4" alt="Example Sponsor" />
+  <a href="https://sonorafoods.com.au" target="_blank">
+    <img src="/Ads/sonora foods.png" alt="Sonora Foods" />
   </a>
 </div>
 
- <div id="output" class="recipe-box"></div>
-<div id="ad-link" class="ad-box">
-  <p><a href="https://www.amazon.com.au/Resistant-Non-Slip-Silicone-Insulated-Washable/dp/B0DJ565LRZ?crid=2FZ609NMRFPAC&dib=eyJ2IjoiMSJ9.23xuTo8c312snXa6YeWkRQ979mjy-0jQaw1aslLmW1fAr8TMhwhZcsgnYWCx6IumaQNOrxIB9DQpq0Q02-5uvP9XD_LgmgkYaE7GHo_OsnkzUo96WvygHk4gSDCTZuO2mQI58KSFLKMk8TeMAh3naGWANFjyD-P4nyNAIahCgPTDKNbWnAXKRUUPxgX-W4Wtd4pSEDXiLXjDzwiYz__Rf7n4pxMfOjXVE5-DENOy6Nm4ymExvJ7kjBNXH0MpJttMD3ms7h014xxHF4B32_z6vTJSChFRJ2V7AEK4B3-c8PU.-nuHdte6X4b1FHGqdpSAvWYx1_VlMDdUwTqQ1pHyMjU&dib_tag=se&keywords=bbq%2Bgloves&qid=1748320623&sprefix=bbq%2Bglove%2Caps%2C354&sr=8-17&th=1&linkCode=ll1&tag=omgbbq-22&linkId=0560e47458b2a15e89d6f1fa33a5b1e5&language=en_AU&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer">
-    Looking for BBQ Gloves? Check out these..
-  </a></p>
+ <!-- Recipe Output Container -->
+<div id="output-container">
+  <div id="recipe-box-output">Your recipe will appear here...</div>
+</div>
+
+<!-- Additional Amazon Ad Under Recipe Box -->
+<div id="amazon-affiliate-below" style="text-align: center; margin-top: 20px;">
+  <a href="https://www.amazon.com.au/Resistant-Cut-Resistant-Non-Slip-Silicone-Barbecue/dp/B08N9X538Q?crid=16RG15WGT7QP0&dib=eyJ2IjoiMSJ9.23xuTo8c312snXa6YeWkRQ979mjy-0jQaw1aslLmW1dHImWV7ODj64EQ-Kcnn-B2RXnVJNhq76vI6V9eYzzDP9EAV5eznk9HN5pSuQSqUQ6lk6QtprDz2NKhvBoq7LZtoTgnWJVLVT7NsQZl85E4t7qzVb1A5OXhTubd2AervWGKB1iE048Z5QS-kUgg-gPCrjG8g07eX8m-t-eUrMm799pj_klVaTkKvII0xZBSbs-9l5GY0vX9qPBgZ5LWVWOFRV6gfPLdUIxjACiarROpiTahFYXJSjyMmKthEafW_3Q.K8vUWnnvSZBO6QecbFr6oF20g46Gpgs16glzAcS26AY&dib_tag=se&keywords=bbq%2Bgloves&qid=1748865905&sprefix=bbq%2Bgloves%2Caps%2C483&sr=8-9&th=1&linkCode=ll1&tag=omgbbq-22&linkId=4ea857558546186b55f86a8d095f6373&language=en_AU&ref_=as_li_ss_tl"
+     target="_blank" rel="noopener noreferrer">
+    <img src="https://m.media-amazon.com/images/I/71wRF9sJTpS._AC_SY450_.jpg" 
+         alt="Looking for BBQ Gloves" 
+         style="max-width: 250px; height: auto; border: 2px solid #ffcc00; border-radius: 10px; box-shadow: 0 0 10px #ffcc00;">
+    <p style="color: #fff; font-weight: bold; margin-top: 10px;">
+      🔥 Get your BBQ Gloves on Amazon
+    </p>
+  </a>
+</div>
+<!-- OMG BBQ Website Button -->
+<div style="text-align: center; margin-top: 20px;">
+  <a href="https://omg-bbq.square.site" target="_blank" rel="noopener noreferrer">
+    <button style="
+      background-color: #ff4500;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ffcc00;
+      cursor: pointer;
+      transition: background-color 0.3s ease;">
+      🔥 Visit OMG BBQ Website
+    </button>
+  </a>
 </div>
 
 
@@ -91,7 +119,8 @@
 
     const button = e.target.querySelector('button[type="submit"]');
     const loadingDiv = document.getElementById('loading');
-    const outputDiv = document.getElementById('recipe-output');
+    const outputDiv = document.getElementById('recipe-box-output');
+
 
     // Show loading state
     loadingDiv.style.display = 'block';
@@ -124,14 +153,17 @@
       const data = await response.json();
       outputDiv.innerHTML = `
   <pre>${data.recipe || 'Error generating recipe.'}</pre>
-  <div style="margin-top: 20px;">
-    <a href="https://www.amazon.com.au/Inkbird-Waterproof-Thermometer-Rechargeable-Calibration/dp/B07X9ZSCD8?crid=3SGF7GOTG6PF&dib=eyJ2IjoiMSJ9.3KeBwCHhsqQoSBMdr3exFIPl14JRILEGclB14v0s6eYSP5NsS2uiLMfhszu3ikhCUJtegxChaot5qcEII9REBVvbLgcyTd3KYV-vTxdo5xaMUPEyA2-7KwkBVzKjUKX2mK4v_jH1W2XU0mmuoQ26aJOosjZ0NdrIdmgp98b09suo-juwe_E71zM4ZQT8BY-9GQ_VUFdWcmTbiX4YfjlGNEe1PSigLJSP-NAiDYet7coVsWckrjoVfrr29A8nM1uoGVUYK5cn1hKg_-rSuFl_oOSgQymoiqDTftFjonJ3Q3U.sQzLQ6v_ZbX7iOkBPnE9qSpj5GgqgbTA3P6BXmFglkA&dib_tag=se&keywords=inkbird&qid=1748306890&sprefix=inkbird%2Caps%2C386&sr=8-9&th=1&linkCode=ll1&tag=omgbbq-22&linkId=35b0d6b0ef490c459d59cda4515c59eb&language=en_AU&ref_=as_li_ss_tl" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       style="display: inline-block; margin-top: 10px; font-weight: bold; color: #c00;">
-       🔥 Check out Inkbird Thermometers on Amazon
-    </a>
-  </div>
+  <div style="margin-top: 20px; text-align: center;">
+  <a href="https://www.amazon.com.au/Inkbird-Thermometer-Rechargeable-Waterproof-IHT-1P/dp/B07Z1YCWNF?crid=3BDIVTVVX2QO4&dib=eyJ2IjoiMSJ9.3KeBwCHhsqQoSBMdr3exFIPl14JRILEGclB14v0s6eYSP5NsS2uiLMfhszu3ikhCUJtegxChaot5qcEII9REBVvbLgcyTd3KYV-vTxdo5xaMUPEyA2-7KwkBVzKjUKX2mK4v_jH1W2XU0mmuoQ26aKk3IT5KQYhK6moaI0iqEIAvktgeSp1jglHzthAlleb6GQ_VUFdWcmTbiX4YfjlGNEWY-VAMHyO_btwAEm45lLdFF16fcdlglRMDluwyhPbvGVUYK5cn1hKg_-rSuFl_oOSgQymoiqDTftFjonJ3Q3U.Z47lZa2QVQHZT1RNGonXmM9wW1kkSGeIpNq8XZSXEmA&dib_tag=se&keywords=inkbird&qid=1748346341&sprefix=ink%2Caps%2C529&sr=8-5&linkCode=ll1&tag=omgbbq-22&linkId=1f1c757e5538d87517ff58e9065a097b&language=en_AU&ref_=as_li_ss_tl" 
+     target="_blank" 
+     rel="noopener noreferrer">
+    <img src="https://m.media-amazon.com/images/I/51wVFkZyJ4S._AC_.jpg" 
+         alt="Inkbird Thermometer" 
+         style="max-width: 250px; height: auto; border: 2px solid #ffcc00; border-radius: 10px; box-shadow: 0 0 10px #ffcc00; margin-bottom: 10px;" />
+    <div style="font-weight: bold; color: #c00; margin-top: 5px;">🔥 Order yours now - click here..</div>
+  </a>
+</div>
+
 `;
 
     } catch (err) {
